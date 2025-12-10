@@ -1,0 +1,31 @@
+# Visual Studio Code
+.vscode
+
+# IntelliJ IDEA
+*.iml
+.idea/
+*.iws
+*.ipr
+
+# Plugin de backup
+.history
+
+# Fichiers compilés Maven
+target/
+*.class
+
+# Fichiers de build
+build/
+out/
+
+# Fichiers de logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.swp
+*~
+
+# Secrets 
+env.properties
