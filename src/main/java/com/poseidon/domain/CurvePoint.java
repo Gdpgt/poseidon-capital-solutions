@@ -1,15 +1,29 @@
 package com.poseidon.domain;
 
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Timestamp;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
-    // TODO: Map columns in data table CURVEPOINT with corresponding java fields
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+
+    int curveId;
+    
+    Timestamp asOfDate;
+    
+    Double term;
+    
+    Double value;
+    
+    Timestamp creationDate;
+
 }
