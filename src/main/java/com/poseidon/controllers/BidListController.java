@@ -46,7 +46,7 @@ public class BidListController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         BidList bidList = bidListService.findById(id)
                                         .orElseThrow(
-                                            () -> new IllegalArgumentException("Invalid bidList Id:" + id)
+                                            () -> new IllegalArgumentException("Invalid bidList Id: " + id)
                                         );
         model.addAttribute("bidList", bidList);
         return "bidList/update";

@@ -1,6 +1,8 @@
 package com.poseidon.controllers;
 
 import com.poseidon.domain.CurvePoint;
+import com.poseidon.services.CurvePointService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,45 +12,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class CurveController {
-    // TODO: Inject Curve Point service
+    
+    private final CurvePointService curvePointService;
+
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
-    {
-        // TODO: find all Curve Point, add to model
+    public String home(Model model) {
+        model.addAttribute("curvePoints", curvePointService.findAll());
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addCurvePointForm(CurvePoint bid) {
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
+        if (!result.hasErrors()) {
+            curvePointService.save(curvePoint);
+            return "redirect:/curvePoint/list";
+        }
         return "curvePoint/add";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+        CurvePoint curvePoint = curvePointService.findById(id)
+                                                 .orElseThrow(
+                                                    () -> new IllegalArgumentException("Invalid curvePoint Id: " + id)
+                                                 );
+        model.addAttribute("curvePoint", curvePoint);
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
-        return "redirect:/curvePoint/list";
+        if (!result.hasErrors()) {
+            curvePointService.save(curvePoint);
+            return "redirect:/curvePoint/list";
+        }
+        return "curvePoint/update";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
+    public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
+        curvePointService.deleteById(id);
         return "redirect:/curvePoint/list";
     }
 }
