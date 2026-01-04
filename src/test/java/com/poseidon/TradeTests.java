@@ -12,13 +12,13 @@ import java.util.Optional;
 
 
 @SpringBootTest
-public class TradeTests {
+class TradeTests {
 
 	@Autowired
 	private TradeRepository tradeRepository;
 
 	@Test
-	public void tradeTest() {
+	void tradeTest() {
 		Trade trade = new Trade("Trade Account", "Type");
 
 		// Save

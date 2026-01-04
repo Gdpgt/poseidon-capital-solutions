@@ -8,16 +8,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "trade")
+@NoArgsConstructor
 public class Trade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer tradeId;
 
     @NotBlank(message = "Account is mandatory")
@@ -36,11 +38,11 @@ public class Trade {
     Double sellQuantity;
 
     @Positive(message = "Buy price must be positive")
-    @Digits(integer = 10, fraction = 2, message = "Buy price must be a valid number")
+    @Digits(integer = 10, fraction = 0, message = "Buy price must be a valid number")
     Double buyPrice;
 
     @Positive(message = "Sell price must be positive")
-    @Digits(integer = 10, fraction = 2, message = "Sell price must be a valid number")
+    @Digits(integer = 10, fraction = 0, message = "Sell price must be a valid number")
     Double sellPrice;
 
     Timestamp tradeDate;
@@ -70,5 +72,10 @@ public class Trade {
     String sourceListId;
 
     String side;
+
+    public Trade(String account, String type) {
+        this.account = account;
+        this.type = type;
+    }
 
 }

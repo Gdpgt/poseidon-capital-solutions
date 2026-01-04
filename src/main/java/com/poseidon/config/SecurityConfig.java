@@ -23,18 +23,14 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http, CustomUserDetailsService userDetailsService) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/app/login", "/app/error", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/app/error", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/app/login")
-                .loginProcessingUrl("/app/login")
                 .defaultSuccessUrl("/bidList/list")
-                .failureUrl("/app/login?error=true")
             )
             .logout(logout -> logout
-                .logoutUrl("/app-logout")
-                .logoutSuccessUrl("/app/login?logout=true")
+                .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
             )
             .userDetailsService(userDetailsService);
