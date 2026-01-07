@@ -35,12 +35,17 @@ public class UserController {
 
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
-        if (!result.hasErrors()) {
-            user.setPassword(encoder.encode(user.getPassword()));
-            userService.save(user);
-            return "redirect:/user/list";
+        if (!user.getPassword().matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")) {
+            result.rejectValue("password", "password.weak", "Password must contain at least 8 characters, 1 uppercase, 1 digit and 1 symbol");    
         }
-        return "user/add";
+
+        if (result.hasErrors()) {
+            return "user/add";
+        }
+        
+        user.setPassword(encoder.encode(user.getPassword()));
+        userService.save(user);
+        return "redirect:/user/list";
     }
 
     @GetMapping("/user/update/{id}")
@@ -54,6 +59,10 @@ public class UserController {
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
+        if (!user.getPassword().matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")) {
+            result.rejectValue("password", "password.weak", "Password must contain at least 8 characters, 1 uppercase, 1 digit and 1 symbol");    
+        }
+
         if (result.hasErrors()) {
             return "user/update";
         }

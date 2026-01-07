@@ -20,7 +20,7 @@ class TradeRepositoryTest {
 
 	@Test
 	void tradeTest() {
-		Trade trade = new Trade("Trade Account", "Type");
+		Trade trade = new Trade("Trade Account", "Type", 10.00);
 
 		// Save
 		trade = tradeRepository.save(trade);
