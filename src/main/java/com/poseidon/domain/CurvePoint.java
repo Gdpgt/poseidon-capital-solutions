@@ -24,7 +24,7 @@ public class CurvePoint {
     @NotNull(message = "The curve id is mandatory")
     @Positive(message = "The curve id must be positive")
     @Digits(integer = 10, fraction = 0, message = "The curve id must be a valid number")
-    int curveId;
+    Integer curveId;
 
     Timestamp asOfDate;
 

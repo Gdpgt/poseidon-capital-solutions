@@ -28,6 +28,7 @@ public class Trade {
     @NotBlank(message = "Type is mandatory")
     String type;
 
+    @NotNull(message = "The buy quantity is mandatory")
     @Positive(message = "Buy quantity must be positive")
     @Digits(integer = 9, fraction = 0, message = "Buy quantity must be a valid number")
     Double buyQuantity;
@@ -72,9 +73,10 @@ public class Trade {
 
     String side;
 
-    public Trade(String account, String type) {
+    public Trade(String account, String type, Double buyQuantity) {
         this.account = account;
         this.type = type;
+        this.buyQuantity = buyQuantity;
     }
 
 }
