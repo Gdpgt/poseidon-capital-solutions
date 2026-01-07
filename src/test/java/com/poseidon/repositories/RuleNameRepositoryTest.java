@@ -1,24 +1,25 @@
-package com.poseidon;
+package com.poseidon.repositories;
 
 import com.poseidon.domain.RuleName;
-import com.poseidon.repositories.RuleNameRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
 
 
-@SpringBootTest
-public class RuleTests {
+@DataJpaTest
+@ActiveProfiles("test")
+class RuleNameRepositoryTest {
 
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
 
 	@Test
-	public void ruleTest() {
+	void ruleTest() {
 		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save

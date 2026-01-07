@@ -36,6 +36,7 @@ public class CurvePoint {
     @NotNull(message = "The value is mandatory")
     @Positive(message = "The value must be positive")
     @Digits(integer = 10, fraction = 0, message = "The value must be a valid number")
+    @Column(name = "\"value\"")
     Double value;
 
     Timestamp creationDate;

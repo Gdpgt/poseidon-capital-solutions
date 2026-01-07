@@ -28,7 +28,6 @@ public class Trade {
     @NotBlank(message = "Type is mandatory")
     String type;
 
-    @NotNull(message = "Buy quantity is mandatory")
     @Positive(message = "Buy quantity must be positive")
     @Digits(integer = 9, fraction = 0, message = "Buy quantity must be a valid number")
     Double buyQuantity;
